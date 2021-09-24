@@ -6,7 +6,7 @@ mongoose.connect("mongodb://localhost/bancodedados").then(()=>{
     console.log("Conectado com sucesso!!")
 }).catch((erro)=>{
     console.log("Erro ao se conectar: "+erro)
-}) //comando no terminal 'use "nome do banco"' ==> para criar um BD
+}) //comando no terminal 'use' "nome do banco"' ==> para criar um BD
 
 //definindo o model (como o BD em MySQL)
 const UsuariosSchema = mongoose.Schema({
