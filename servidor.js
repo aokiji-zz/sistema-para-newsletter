@@ -6,9 +6,16 @@ const handlebars = require('express-handlebars')
 const app = express()
 const bodyparser = require('body-parser')
 const port = 8081
+const path = require('path')
 //configuração
+
+//path: nesse caso irá servir para adicionar arquivos estáticos, dentro da página "public"
+app.use(express.static(path.join(__dirname, 'public')))
+//handlebars
 app.engine('handlebars', handlebars({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
+//bodyparser
+app.use(bodyParser.json())
 app.use(bodyparser.urlencoded({extended: true}))
 //rotas
 app.get('/cadastro', (req, res)=>{
