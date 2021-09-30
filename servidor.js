@@ -24,6 +24,28 @@ app.get('/cadastro', (req, res)=>{
 })
 
 app.post('/add-cadastrar', (req, res)=>{
+    //controle de acesso
+    var erros = []
+    //campo vazio
+    if(!req.body.email || typeof req.body.email == undefined || typeof req.body == null){
+        console.log("Campo Inválido")
+    }
+    //campo <10 == @gmail.com
+    if(!req.body.email.lenght<10){
+        console.log("Email inválido")
+    }
+    //se houver qualquer erro
+    if(erros.length>0){
+        res.render('formulario', {erros: erros})
+    } else {
+    Colecttion.findOne({email: req.body.email}).then((usuario)=>{
+     if(usuario){
+     console.log('email já cadastrado')
+     res.render('formulario')
+     
+     } else {
+     
+     
      usuarioCadastrar = {
         email: req.body.email
     },
@@ -34,6 +56,13 @@ app.post('/add-cadastrar', (req, res)=>{
         console.log('Houve um erro '+ erro)
     })
     res.render('cadastrou')
+     
+     }
+    
+    })
+    
+    }
+     
 })
 
 app.listen(port, ()=>{
